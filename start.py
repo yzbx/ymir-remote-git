@@ -209,7 +209,7 @@ def _dummy_work(cfg: edict) -> None:
         time.sleep(1)
         monitor.write_monitor_logger(percent=e/cfg.param.epoch)
 
-        for line in Pygtail("some.log"):
+        for line in Pygtail(log_file):
             monitor.write_tensorboard_text(text=line)
 
 
