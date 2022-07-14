@@ -2,3 +2,4 @@ easydict
 tensorboardX
 PyYAML
 tqdm
+pygtail

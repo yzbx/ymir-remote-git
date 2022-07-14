@@ -7,6 +7,7 @@ from typing import List
 
 import yaml
 from easydict import EasyDict as edict
+from pygtail import Pygtail
 
 # view https://github.com/protocolbuffers/protobuf/issues/10051 for detail
 os.environ.setdefault('PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION', 'python')
@@ -201,11 +202,15 @@ def _dummy_work(cfg: edict) -> None:
         # use cfg.ymir.output.tensorboard_dir to get tensorboard log directory.
         tb_log = SummaryWriter(cfg.ymir.output.tensorboard_dir)
 
+    log_file = cfg.ymir.output.executor_log_file
     for e in tqdm(range(cfg.param.epoch)):
         if cfg.ymir.run_training:
             tb_log.add_scalar("fake_loss", 10/(1+e), e)
         time.sleep(1)
         monitor.write_monitor_logger(percent=e/cfg.param.epoch)
+
+        for line in Pygtail("some.log"):
+            monitor.write_tensorboard_text(text=line)
 
 
 if __name__ == '__main__':
