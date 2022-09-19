@@ -1,6 +1,6 @@
-model: 'yolov5s'
+model: 'yolov5n'
 batch_size: 16
-epochs: 10
+epochs: 100
 img_size: 640
 opset: 11
 conf_thres: 0.25
